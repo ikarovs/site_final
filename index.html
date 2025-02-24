@@ -1,0 +1,164 @@
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cidadão Ambiental</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        #about {
+            background-color: #8FBC8F; /* Verde claro */
+            padding: 20px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="imagens/logocidadaoambiental.png" alt="logo do site" class="logo">
+    
+            <img src="imagens/logo.png" alt="Cidadão Ambiental" class="header-img">
+        
+        <nav>
+            <ul>
+                <li><a href="#home" id="homeLink">Home / Relatar Problema</a></li>
+                <li><a href="#admin" id="adminLink">Admin</a></li>
+                <li><a href="quemsomos.html.">Quem Somos</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="about">
+<img src="imagens/front.png" alt="Sobre nós">
+</section>
+
+        <section id="home">
+            <h2>Bem-vindo ao Cidadão Ambiental</h2>
+            <p>Relate problemas ambientais na sua comunidade e ajude a melhorar o nosso ambiente.</p>
+        </section>
+
+        <section id="report">
+            <h2>Relatar Problema</h2>
+            <form id="reportForm">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required placeholder="Seu email">
+
+                <label for="subject">Título:</label>
+                <input type="text" id="subject" name="subject" required placeholder="Título do problema">
+
+                <label for="description">Descrição Detalhada:</label>
+                <textarea id="description" name="description" required placeholder="Detalhe a ocorrência (local, data, observações)"></textarea>
+
+                <label for="category">Categoria/Tipo de Problema:</label>
+                <br>
+                <select id="category" name="category" required>
+                    <option value="despejo_lixo">Despejo de Lixo</option>
+                    <option value="alagamento">Alagamento</option>
+                    <option value="risco_epidemiologico">Risco Epidemiológico</option>
+                    <option value="saneamento_basico">Falta de Saneamento Básico</option>
+                    <option value="poluicao_sonora">Poluição Sonora</option>
+                    <option value="desmatamento_urbano">Desmatamento Urbano</option>
+                    <option value="falta_iluminacao">Falta de Iluminação Pública</option>
+                    <option value="poluicao_ar">Poluição do Ar</option>
+                </select>
+                <br>
+                <label for="location">Localização:</label>
+                <select id="location" name="location" required>
+                    <option value="santo_antonio">Santo Antônio</option>
+                    <option value="santa_helena">Santa Helena</option>
+                    <option value="aeroporto">Aeroporto</option>
+                    <option value="aboliçao">Abolição</option>
+                    <option value="belo_horizonte">Belo Horizonte</option>
+                    <option value="boa_vista">Boa Vista</option>
+                    <option value="centro">Centro</option>
+                    <option value="dix_sept_rosado">Dix-Sept Rosado</option>
+                    <option value="doze_anos">Doze Anos</option>
+                    <option value="nova_betel">Nova Betel</option>
+                    <option value="pintos">Pintos</option>
+                    <option value="redencao">Redenção</option>
+                    <option value="sumare">Sumaré</option>
+                    <option value="vitoria">Vitória</option>
+                </select>
+                <br>
+                <br>
+                <label for="media">Anexar Mídia:</label>
+                <input type="file" id="media" name="media" required>
+                <br>
+                <button type="submit">Enviar</button>
+            </form>
+        </section>
+
+        <section id="contact">
+            <h2></h2>
+            <p>Entre em contato conosco pelo email: contato@cidadaoambiental.org</p>
+        </section>
+
+        <section id="admin" style="display: none;">
+            <h2>Administração</h2>
+            <p>Bem-vindo, administrador! Aqui você pode gerenciar os relatórios de problemas.</p>
+            <ul id="reportsList"></ul>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Cidadão Ambiental. Todos os direitos reservados.</p>
+    </footer>
+    <script src="scripts.js"></script>
+
+<script>
+
+document.getElementById('reportForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Impede o envio padrão do formulário
+    // Captura os dados do formulário
+    const email = document.getElementById('email').value.toUpperCase();
+    const subject = document.getElementById('subject').value.toUpperCase();
+    const description = document.getElementById('description').value.toUpperCase();
+    const category = document.getElementById('category').value.toUpperCase();
+    const location = document.getElementById('location').value.toUpperCase();
+    const media = document.getElementById('media').files[0];
+    // Cria um novo item de relatório
+    const reportItem = document.createElement('li');
+    reportItem.innerHTML = `
+        <p><strong>EMAIL:</strong></p><p>${email}</p>
+        <p><strong>TÍTULO:</strong></p><p>${subject}</p>
+        <p><strong>DESCRIÇÃO:</strong></p><p>${description}</p>
+        <p><strong>CATEGORIA:</strong></p><p>${category}</p>
+        <p><strong>LOCALIZAÇÃO:</strong></p><p>${location}</p>
+        <p><strong>FOTO:</strong></p><img src="${URL.createObjectURL(media)}" alt="Foto do problema" width="100">
+    `;
+    // Adiciona o novo item à lista de relatórios na seção de administração
+    document.getElementById('reportsList').appendChild(reportItem);
+    // Limpa o formulário após o envio
+    document.getElementById('reportForm').reset();
+});
+
+    event.preventDefault(); // Impede o envio padrão do formulário
+
+    // Captura os dados do formulário
+    const email = document.getElementById('email').value;
+    const subject = document.getElementById('subject').value;
+    const description = document.getElementById('description').value;
+    const category = document.getElementById('category').value;
+    const location = document.getElementById('location').value;
+    const media = document.getElementById('media').files[0];
+
+    // Cria um novo item de relatório
+    const reportItem = document.createElement('li');
+    reportItem.innerHTML = `
+        <strong>Email:</strong> ${email}<br>
+        <strong>Título:</strong> ${subject}<br>
+        <strong>Descrição:</strong> ${description}<br>
+        <strong>Categoria:</strong> ${category}<br>
+        <strong>Localização:</strong> ${location}<br>
+        <strong>Foto:</strong> <img src="\${URL.createObjectURL(media)}" alt="Foto do problema" width="100"><br>
+    `;
+
+    // Adiciona o novo item à lista de relatórios na seção de administração
+    document.getElementById('reportsList').appendChild(reportItem);
+
+    // Limpa o formulário após o envio
+    document.getElementById('reportForm').reset();
+});
+</script>
+<button onclick="document.getElementById('admin').style.display = 'block';">Mostrar Administração</button>
+
+</body>
+</html>
